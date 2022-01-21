@@ -12,16 +12,63 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        drawer: Drawer(
+        drawer: Container(
+          child: Drawer(
+            // Add a ListView to the drawer. This ensures the user can scroll
+            // through the options in the drawer if there isn't enough vertical
+            // space to fit everything.
             child: ListView(
-          children: [
-            ListTile(
-              title: Text('dsfsdf'),
-            )
-          ],
-        )),
+              // Important: Remove any padding from the ListView.
+              padding: EdgeInsets.zero,
+              children: [
+                const DrawerHeader(
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                        image: AssetImage('assets/images/bg.jpg')),
+                    color: Colors.white,
+                  ),
+                  child: null,
+                ),
+                ListTile(
+                  leading: Icon(Icons.arrow_forward),
+                  title: const Text('Item 1'),
+                  onTap: () {
+                    // Update the state of the app
+                    // ...
+                    // Then close the drawer
+                    Navigator.pop(context);
+                  },
+                ),
+                ListTile(
+                  leading: Icon(Icons.arrow_forward),
+                  title: const Text('Item 2'),
+                  onTap: () {
+                    // Update the state of the app
+                    // ...
+                    // Then close the drawer
+                    Navigator.pop(context);
+                  },
+                ),
+              ],
+            ),
+          ),
+        ),
         backgroundColor: Colors.white,
         appBar: AppBar(
+          leading: Builder(
+            builder: (BuildContext context) {
+              return IconButton(
+                icon: const Icon(
+                  Icons.menu,
+                  color: Colors.black54,
+                ),
+                onPressed: () {
+                  Scaffold.of(context).openDrawer();
+                },
+                tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
+              );
+            },
+          ),
           systemOverlayStyle:
               SystemUiOverlayStyle(statusBarColor: Colors.white),
           backgroundColor: Colors.white,
@@ -289,6 +336,7 @@ Widget _footer() {
     height: 100,
     //width: 300,
     child: ListView(
+      physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
       shrinkWrap: true,
       scrollDirection: Axis.horizontal,
       children: [
