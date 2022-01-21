@@ -286,7 +286,6 @@ Widget _ListMoy2() {
 
 Widget _footer() {
   return Container(
-    margin: EdgeInsets.all(20),
     height: 100,
     //width: 300,
     child: ListView(
